@@ -10,7 +10,7 @@ Vue.config.productionTip = false;
 let router = null;
 let instance = null;
 function render(props = {}) {
-  const { container } = props;
+  const { container, mainAppHistory = '' } = props;
   router = new VueRouter({
     base: window.__POWERED_BY_QIANKUN__ ? "/app-vue/" : "/",
     mode: "history",
@@ -20,6 +20,7 @@ function render(props = {}) {
   instance = new Vue({
     router,
     store,
+    provide: { mainAppHistory }, // 初始化时直接挂载到实例
     render: (h) => h(App),
   }).$mount(container ? container.querySelector("#app") : "#app");
 }
